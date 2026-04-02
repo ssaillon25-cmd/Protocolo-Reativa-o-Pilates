@@ -200,11 +200,10 @@ export const GiftScreen: React.FC<GiftScreenProps> = ({ nome, handleNext }) => {
                   {/* Video Access Image */}
                   <div className="mb-6 rounded-[32px] overflow-hidden shadow-lg border-4 border-white">
                     <img 
-                      src="https://res.cloudinary.com/dcef2qwzi/image/upload/q_auto,f_auto/v1775084863/Untitled_design_hddre8.png" 
+                      src="https://res.cloudinary.com/dcef2qwzi/image/upload/q_auto/f_auto/v1775084863/Untitled_design_hddre8.png" 
                       alt="Acesso Imediato"
                       className="w-full h-auto object-cover"
                       referrerPolicy="no-referrer"
-                      loading="lazy"
                     />
                   </div>
 
@@ -229,6 +228,16 @@ export const GiftScreen: React.FC<GiftScreenProps> = ({ nome, handleNext }) => {
                       <span className="text-[10px] font-bold text-brand-pink bg-brand-pink/10 px-2 py-1 rounded">GRÁTIS HOJE</span>
                     </div>
                     
+                    {/* Bonus Image */}
+                    <div className="rounded-2xl overflow-hidden shadow-md border-2 border-brand-pink/20">
+                      <img 
+                        src="https://res.cloudinary.com/dcef2qwzi/image/upload/q_auto/f_auto/v1775090413/Gemini_Generated_Image_h1jfkzh1jfkzh1jf_ymlpjs.png" 
+                        alt="Bônus Exclusivos"
+                        className="w-full h-auto object-cover"
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+
                     <div className="grid grid-cols-1 gap-4">
                       {[
                         { icon: Utensils, title: "Plano Alimentar 7 Dias", val: "R$ 67,00" },
