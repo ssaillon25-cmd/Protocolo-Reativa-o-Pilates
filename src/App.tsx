@@ -1279,7 +1279,6 @@ export default function App() {
         </div>
 
         <div className="text-center mb-10 px-4">
-          <p className="text-brand-pink font-black text-lg leading-tight mb-2 uppercase tracking-tight">💣 FRASE DE IMPACTO</p>
           <p className="text-xl font-bold text-brand-text leading-tight">
             Por isso parece que nada funciona… <br />
             <span className="text-brand-text-muted">mesmo quando você se esforça.</span>
@@ -1287,7 +1286,6 @@ export default function App() {
         </div>
 
         <div className="bg-brand-success/5 p-8 rounded-[32px] border border-brand-success/20 mb-10 text-center">
-          <p className="text-brand-success font-black text-sm uppercase tracking-widest mb-3">🔥 VIRADA (AQUI MUDA TUDO)</p>
           <p className="text-lg font-bold text-brand-text leading-tight">
             Mas a boa notícia é: <br />
             <span className="text-brand-success text-xl">👉 isso pode ser revertido ao ativar seu metabolismo da forma correta.</span>
@@ -1295,9 +1293,6 @@ export default function App() {
         </div>
 
         <div className="card-quiz mb-10 border-brand-success/30 bg-white">
-          <p className="text-brand-success font-black text-sm uppercase tracking-widest mb-4 flex items-center gap-2 justify-center">
-            🎯 ENTREGA (ESSENCIAL)
-          </p>
           <h3 className="text-xl font-display font-black text-brand-text mb-4 leading-tight">
             ✅ {nome}, seu protocolo já está pronto
           </h3>
@@ -1308,7 +1303,6 @@ export default function App() {
 
         <div className="bg-brand-text p-8 rounded-[32px] mb-10 text-white shadow-xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16" />
-          <p className="text-white/60 font-black text-[10px] uppercase tracking-[0.2em] mb-4">💥 ANTECIPAÇÃO</p>
           <p className="font-bold text-lg mb-6 leading-tight">Nos próximos segundos, você vai ver exatamente:</p>
           <ul className="space-y-4">
             <li className="flex items-center gap-3">
