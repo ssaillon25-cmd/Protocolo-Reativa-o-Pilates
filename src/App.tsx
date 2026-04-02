@@ -1188,62 +1188,162 @@ export default function App() {
     );
   };
 
-  const renderResultCause = () => (
-    <div className="px-6 py-12 max-w-lg mx-auto w-full">
-      <div className="text-center mb-10">
-        <div className="inline-flex items-center gap-2 bg-brand-success/10 text-brand-success px-4 py-2 rounded-full font-bold text-sm mb-4">
-          <AlertTriangle size={16} />
-          Causa raiz identificada
-        </div>
-        <h2 className="text-2xl font-display font-bold !text-[#ff4d6d] mb-2">
-          Seu problema é:
-        </h2>
-        <p className="text-2xl font-display font-bold !text-[#ff4d6d] uppercase">
-          👉 ERRO SILENCIOSO QUE TRAVA O METABOLISMO DAS MULHERES APÓS OS 30!
-        </p>
-      </div>
-
-      <div className="card-quiz mb-8">
-        <div className="mb-6">
-          <div className="flex justify-between items-end mb-2">
-            <span className="font-bold text-brand-text">Metabolismo:</span>
-            <span className="text-brand-success font-bold">27%</span>
+  const renderResultCause = () => {
+    const nome = answers[29] || "Você";
+    return (
+      <div className="px-6 py-12 max-w-lg mx-auto w-full bg-brand-bg min-h-screen">
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 bg-brand-success/10 text-brand-success px-4 py-2 rounded-full font-bold text-sm mb-6">
+            <AlertTriangle size={16} />
+            ⚠️ CAUSA RAIZ IDENTIFICADA
           </div>
-          <div className="w-full h-4 bg-gray-100 rounded-full overflow-hidden flex">
-            <div className="h-full bg-brand-success w-[27%]" />
+          <h2 className="text-xl font-display font-bold text-brand-text mb-8 leading-tight">
+            {nome}, encontramos o principal bloqueio do seu corpo:
+          </h2>
+          
+          <div className="bg-brand-pink/5 p-6 rounded-[24px] border border-brand-pink/20 mb-10">
+            <p className="text-brand-pink font-black text-sm uppercase tracking-widest mb-2">💣 SEU PROBLEMA É:</p>
+            <p className="text-2xl font-display font-black !text-[#ff4d6d] leading-tight">
+              👉 Metabolismo hormonal desacelerado
+            </p>
           </div>
-          <p className="text-xs text-brand-text-muted mt-2">Seu metabolismo está operando abaixo do ideal.</p>
         </div>
 
-        <div>
-          <div className="flex justify-between items-end mb-2">
-            <span className="font-bold text-brand-text">Hormonal:</span>
-            <span className="text-brand-success font-bold">32%</span>
+        <div className="mb-10">
+          <h3 className="font-display font-bold text-brand-text mb-6 flex items-center gap-2 justify-center">
+            <BarChart3 size={20} className="text-brand-text" />
+            📊 SEU ESTADO ATUAL
+          </h3>
+          
+          <div className="card-quiz mb-6">
+            <div className="mb-6">
+              <div className="flex justify-between items-end mb-2">
+                <span className="font-bold text-brand-text flex items-center gap-1">
+                  <Flame size={16} className="text-brand-pink" /> 🔥 Metabolismo
+                </span>
+                <span className="text-brand-success font-black text-xl">27%</span>
+              </div>
+              <div className="w-full h-4 bg-gray-100 rounded-full overflow-hidden flex">
+                <motion.div 
+                  initial={{ width: 0 }}
+                  animate={{ width: "27%" }}
+                  transition={{ duration: 1, delay: 0.5 }}
+                  className="h-full bg-brand-success" 
+                />
+              </div>
+              <p className="text-xs text-brand-text-muted mt-3 font-medium">Seu corpo está queimando muito menos gordura do que deveria.</p>
+            </div>
+
+            <div>
+              <div className="flex justify-between items-end mb-2">
+                <span className="font-bold text-brand-text flex items-center gap-1">
+                  <TrendingDown size={16} className="text-brand-pink" /> ⚖️ Equilíbrio hormonal
+                </span>
+                <span className="text-brand-success font-black text-xl">32%</span>
+              </div>
+              <div className="w-full h-4 bg-gray-100 rounded-full overflow-hidden">
+                <motion.div 
+                  initial={{ width: 0 }}
+                  animate={{ width: "32%" }}
+                  transition={{ duration: 1, delay: 0.7 }}
+                  className="h-full bg-brand-success" 
+                />
+              </div>
+              <p className="text-xs text-brand-text-muted mt-3 font-medium">Abaixo do nível ideal para ativar a queima de gordura.</p>
+            </div>
           </div>
-          <div className="w-full h-4 bg-gray-100 rounded-full overflow-hidden">
-            <div className="h-full bg-brand-success w-[32%]" />
-          </div>
-          <p className="text-xs text-brand-text-muted mt-2">Indicador abaixo do ideal para queima de gordura.</p>
         </div>
-      </div>
 
-      <div className="text-center mb-10">
-        <p className="text-lg text-brand-text leading-relaxed">
-          Seu corpo está armazenando gordura porque seu metabolismo hormonal está travado.
-        </p>
-      </div>
+        <div className="bg-brand-bg-alt p-8 rounded-[32px] border border-gray-100 mb-10 shadow-sm">
+          <h3 className="font-display font-bold text-brand-text mb-6 flex items-center gap-2">
+            <Brain size={20} className="text-brand-text" />
+            🧠 EXPLICAÇÃO
+          </h3>
+          <p className="text-brand-text mb-6 leading-relaxed font-medium">
+            Isso faz com que seu corpo entre em um modo de defesa…
+          </p>
+          <ul className="space-y-4">
+            <li className="flex items-start gap-3 text-brand-text font-bold">
+              <span className="text-brand-pink text-lg">👉</span>
+              <span>armazenando gordura ao invés de queimar</span>
+            </li>
+            <li className="flex items-start gap-3 text-brand-text font-bold">
+              <span className="text-brand-pink text-lg">👉</span>
+              <span>reduzindo sua energia</span>
+            </li>
+            <li className="flex items-start gap-3 text-brand-text font-bold">
+              <span className="text-brand-pink text-lg">👉</span>
+              <span>dificultando qualquer tentativa de emagrecimento</span>
+            </li>
+          </ul>
+        </div>
 
-      <button 
-        onClick={handleNext} 
-        className="btn-primary w-full bg-brand-success hover:bg-green-600 border-none shadow-lg"
-      >
-        👉 Continuar para ver meu protocolo
-      </button>
-    </div>
-  );
+        <div className="text-center mb-10 px-4">
+          <p className="text-brand-pink font-black text-lg leading-tight mb-2 uppercase tracking-tight">💣 FRASE DE IMPACTO</p>
+          <p className="text-xl font-bold text-brand-text leading-tight">
+            Por isso parece que nada funciona… <br />
+            <span className="text-brand-text-muted">mesmo quando você se esforça.</span>
+          </p>
+        </div>
+
+        <div className="bg-brand-success/5 p-8 rounded-[32px] border border-brand-success/20 mb-10 text-center">
+          <p className="text-brand-success font-black text-sm uppercase tracking-widest mb-3">🔥 VIRADA (AQUI MUDA TUDO)</p>
+          <p className="text-lg font-bold text-brand-text leading-tight">
+            Mas a boa notícia é: <br />
+            <span className="text-brand-success text-xl">👉 isso pode ser revertido ao ativar seu metabolismo da forma correta.</span>
+          </p>
+        </div>
+
+        <div className="card-quiz mb-10 border-brand-success/30 bg-white">
+          <p className="text-brand-success font-black text-sm uppercase tracking-widest mb-4 flex items-center gap-2 justify-center">
+            🎯 ENTREGA (ESSENCIAL)
+          </p>
+          <h3 className="text-xl font-display font-black text-brand-text mb-4 leading-tight">
+            ✅ {nome}, seu protocolo já está pronto
+          </h3>
+          <p className="text-brand-text-muted text-sm leading-relaxed">
+            Criamos um plano personalizado com base nas suas respostas para reativar seu metabolismo de forma simples e progressiva.
+          </p>
+        </div>
+
+        <div className="bg-brand-text p-8 rounded-[32px] mb-10 text-white shadow-xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16" />
+          <p className="text-white/60 font-black text-[10px] uppercase tracking-[0.2em] mb-4">💥 ANTECIPAÇÃO</p>
+          <p className="font-bold text-lg mb-6 leading-tight">Nos próximos segundos, você vai ver exatamente:</p>
+          <ul className="space-y-4">
+            <li className="flex items-center gap-3">
+              <div className="w-5 h-5 rounded-full bg-brand-success flex items-center justify-center shrink-0">
+                <Check size={12} className="text-white" />
+              </div>
+              <span className="font-medium">Como ativar seu metabolismo</span>
+            </li>
+            <li className="flex items-center gap-3">
+              <div className="w-5 h-5 rounded-full bg-brand-success flex items-center justify-center shrink-0">
+                <Check size={12} className="text-white" />
+              </div>
+              <span className="font-medium">Como começar com apenas 10 minutos por dia</span>
+            </li>
+            <li className="flex items-center gap-3">
+              <div className="w-5 h-5 rounded-full bg-brand-success flex items-center justify-center shrink-0">
+                <Check size={12} className="text-white" />
+              </div>
+              <span className="font-medium">E como eliminar gordura de forma consistente</span>
+            </li>
+          </ul>
+        </div>
+
+        <button 
+          onClick={handleNext} 
+          className="w-full py-6 text-xl font-black text-white bg-[#22C55E] hover:bg-[#16a34a] shadow-[0_15px_35px_rgba(34,197,94,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all animate-pulse-green rounded-2xl flex items-center justify-center gap-2 border-none"
+        >
+          👉 VER MEU PROTOCOLO PERSONALIZADO
+        </button>
+      </div>
+    );
+  };
 
   const renderResultFinal = () => {
-    const nome = answers[29] || "Você";
+    const nome = (answers[29] || "Você").toUpperCase();
     return (
       <div className="px-6 py-12 max-w-lg mx-auto w-full bg-brand-bg min-h-screen">
         <div className="flex items-center gap-2 text-brand-success font-bold mb-4 justify-center">
@@ -1253,7 +1353,7 @@ export default function App() {
         
         <div className="text-center mb-10">
           <h2 className="text-3xl font-display font-black mb-2 uppercase tracking-tight !text-[#22c55e]">
-            🎉 PARABÉNS, {nome.toUpperCase()}!
+            🎉 PARABÉNS, {nome}!
           </h2>
           <p className="text-brand-text font-bold text-lg leading-tight">
             Seu teste identificou um alto potencial de emagrecimento

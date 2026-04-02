@@ -200,10 +200,11 @@ export const GiftScreen: React.FC<GiftScreenProps> = ({ nome, handleNext }) => {
                   {/* Video Access Image */}
                   <div className="mb-6 rounded-[32px] overflow-hidden shadow-lg border-4 border-white">
                     <img 
-                      src="https://res.cloudinary.com/dcef2qwzi/image/upload/q_auto/f_auto/v1775084863/Untitled_design_hddre8.png" 
+                      src="https://res.cloudinary.com/dcef2qwzi/image/upload/q_auto,f_auto/v1775084863/Untitled_design_hddre8.png" 
                       alt="Acesso Imediato"
                       className="w-full h-auto object-cover"
                       referrerPolicy="no-referrer"
+                      loading="lazy"
                     />
                   </div>
 

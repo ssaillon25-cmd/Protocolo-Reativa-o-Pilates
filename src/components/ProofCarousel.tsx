@@ -7,29 +7,29 @@ const testimonials = [
     rating: 5,
     author: "Camila R., 38 anos",
     quote: "“Depois dos 35 meu corpo simplesmente parou de responder. Eu fazia tudo certo e nada funcionava. Com 10 minutos por dia, comecei a ver resultado já na segunda semana.”",
-    image: "https://res.cloudinary.com/dcef2qwzi/image/upload/v1774999952/prova_01_r0edzo.jpg"
+    image: "https://res.cloudinary.com/dcef2qwzi/image/upload/q_auto,f_auto/v1774999952/prova_01_r0edzo.jpg"
   },
   {
     rating: 5,
     author: "Lucia M., 44 anos",
-    quote: "“Eu eliminava peso e voltava tudo de novo… Com o protocolo, comecei a perder 1kg por semana de forma constante. Já são mais de 10kg a menos.”",
-    image: "https://res.cloudinary.com/dcef2qwzi/image/upload/v1774999953/prova_02_ijmb3j.jpg"
+    quote: "“Eliminava peso e voltava tudo de novo… Com o protocolo, comecei a perder 1kg por semana de forma constante. Já são mais de 10kg a menos.”",
+    image: "https://res.cloudinary.com/dcef2qwzi/image/upload/q_auto,f_auto/v1774999953/prova_02_ijmb3j.jpg"
   },
   {
     rating: 5,
     author: "Patrícia S., 52 anos",
     quote: "“Eu nunca tinha feito Pilates na vida. Achei que seria difícil, mas é só dar o play e seguir. Em poucas semanas já me sentia mais leve e sem dores.”",
-    image: "https://res.cloudinary.com/dcef2qwzi/image/upload/v1774999957/prova_03_ia8aas.jpg"
+    image: "https://res.cloudinary.com/dcef2qwzi/image/upload/q_auto,f_auto/v1774999957/prova_03_ia8aas.jpg"
   },
   {
     rating: 5,
     author: "Fernanda L., 36 anos",
     quote: "“Eu não tinha tempo pra academia… Esse protocolo salvou minha rotina. São só 10 minutos e meu corpo começou a mudar de verdade.”",
-    image: "https://res.cloudinary.com/dcef2qwzi/image/upload/v1774999952/prova_04_cg5jdo.jpg"
+    image: "https://res.cloudinary.com/dcef2qwzi/image/upload/q_auto,f_auto/v1774999952/prova_04_cg5jdo.jpg"
   }
 ];
 
-export const ProofCarousel = () => {
+export const ProofCarousel = React.memo(() => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const next = () => setCurrentIndex((prev) => (prev + 1) % testimonials.length);
@@ -64,6 +64,7 @@ export const ProofCarousel = () => {
                 alt={testimonials[currentIndex].author}
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
+                loading="lazy"
               />
             </div>
 
@@ -104,4 +105,4 @@ export const ProofCarousel = () => {
       </div>
     </div>
   );
-};
+});
