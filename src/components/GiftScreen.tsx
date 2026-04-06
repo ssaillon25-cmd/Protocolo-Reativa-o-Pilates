@@ -158,17 +158,19 @@ export const GiftScreen: React.FC<GiftScreenProps> = ({ nome, handleNext }) => {
                       Protocolo Ativação Metabólica
                     </div>
                     <h1 className="text-3xl font-display font-black text-brand-text mb-4 leading-[0.95] tracking-tight">
-                      ATIVE SEU METABOLISMO COM APENAS 10 MINUTOS POR DIA E PERCA ATÉ 1 KG POR SEMANA.
+                      Reative seu metabolismo travado com apenas 10 minutos por dia — e volte a ver seu corpo responder como antes.
                     </h1>
                     <p className="text-brand-text font-bold text-lg leading-snug">
-                      O método exato para fazer seu corpo queimar gordura naturalmente — sem academia e sem dietas malucas.
+                      O método exato para fazer seu corpo queimar gordura naturalmente…<br />
+                      mesmo que você não tenha tempo, não goste de academia ou sinta que nada mais funciona.
                     </p>
                   </div>
 
                   {/* Belief Break */}
                   <div className="bg-brand-text/5 p-6 rounded-[24px] mb-8 border-l-4 border-brand-text">
                     <p className="text-brand-text leading-relaxed italic">
-                      "Você não precisa de mais esforço, você só precisa <span className="font-bold text-brand-success underline">ativar o mecanismo certo</span> no seu corpo."
+                      "Você não precisa de mais esforço…<br />
+                      você só precisa <span className="font-bold text-brand-success underline">ativar o mecanismo certo</span> no seu corpo"
                     </p>
                   </div>
 
@@ -180,9 +182,10 @@ export const GiftScreen: React.FC<GiftScreenProps> = ({ nome, handleNext }) => {
                     </h3>
                     <div className="space-y-4">
                       {[
-                        { title: "Protocolo Pilates em Casa", desc: "Aulas completas do zero ao avançado." },
-                        { title: "Método 10 Minutos", desc: "Sessões rápidas que cabem na sua rotina." },
-                        { title: "Passo a Passo Guiado", desc: "Não precisa pensar, é só dar o play." }
+                        { title: "✔ Protocolo Pilates em Casa", desc: "Aulas completas, do zero ao avançado — mesmo que você nunca tenha feito antes." },
+                        { title: "✔ Método 10 Minutos", desc: "Sessões rápidas, pensadas para caber na sua rotina." },
+                        { title: "✔ Passo a Passo Guiado", desc: "Você não precisa pensar. É só dar o play e seguir." },
+                        { title: "✔ Acesso Imediato", desc: "Assista pelo celular, tablet ou computador, onde e quando quiser." }
                       ].map((item, i) => (
                         <div key={i} className="flex items-start gap-4 p-4 rounded-2xl bg-brand-bg-alt border border-gray-100">
                           <div className="bg-brand-success/10 p-2 rounded-full mt-1">
@@ -276,59 +279,44 @@ export const GiftScreen: React.FC<GiftScreenProps> = ({ nome, handleNext }) => {
                   <div className="space-y-8 mb-10">
                     <div className="bg-[#eff6ff] p-6 rounded-[32px] border border-blue-100">
                       <h3 className="text-blue-600 font-black text-xl flex items-center gap-2 mb-4">
-                        📊 PROJEÇÃO VISUAL
+                        📉 O QUE PODE ACONTECER COM VOCÊ:
                       </h3>
                       <div className="space-y-3">
-                        <div className="flex items-center justify-between text-sm bg-blue-600 p-3 rounded-xl">
-                          <span className="!text-white font-bold">📉 RESULTADO SEMANAL</span>
-                          <span className="bg-white px-2 py-1 rounded-lg text-blue-600 font-black">-1.2kg</span>
-                        </div>
-                        <div className="w-full h-2 bg-blue-200 rounded-full overflow-hidden">
-                          <motion.div 
-                            initial={{ width: 0 }}
-                            animate={{ width: '100%' }}
-                            transition={{ duration: 2 }}
-                            className="h-full bg-blue-600"
-                          />
+                        <p className="text-blue-600 font-bold text-sm">Em poucas semanas, você pode:</p>
+                        <div className="space-y-2">
+                          {["✔ Desinchar nos primeiros dias", "✔ Sentir as roupas mais folgadas", "✔ Voltar a ver o corpo responder", "✔ Reduzir até 1kg por semana"].map((item, i) => (
+                            <div key={i} className="flex items-center gap-2 text-blue-600 font-medium text-sm">
+                              {item}
+                            </div>
+                          ))}
                         </div>
                       </div>
                     </div>
 
                     <div className="bg-[#eff6ff] p-8 rounded-[32px] text-blue-600 shadow-xl shadow-blue-600/5 border border-blue-100">
                       <h3 className="text-blue-600 font-black text-xl flex items-center gap-2 mb-6">
-                        📈 SEU PLANO PERSONALIZADO
+                        ⚠️ IMPORTANTE
                       </h3>
                       <div className="space-y-4">
-                        {[
-                          "1. Reativação Metabólica",
-                          "2. Queima Visível",
-                          "3. Resultado e Tonificação"
-                        ].map((step, i) => (
-                          <div key={i} className="flex items-center gap-3 bg-white p-4 rounded-2xl border border-blue-100">
-                            <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-xs">
-                              {i + 1}
-                            </div>
-                            <span className="font-bold text-sm text-blue-600">{step}</span>
-                          </div>
-                        ))}
+                        <p className="text-blue-600 font-bold text-sm">Esse protocolo foi desenvolvido especialmente para mulheres que:</p>
+                        <ul className="space-y-2 text-blue-600 font-medium text-sm list-none">
+                          <li>• Sentem o metabolismo mais lento após os 30</li>
+                          <li>• Não conseguem mais emagrecer como antes</li>
+                          <li>• Já tentaram dieta e não tiveram resultado</li>
+                        </ul>
                       </div>
                     </div>
                   </div>
 
-                  <div className="text-center mb-10">
-                    <p className="text-[#f59e0b] font-black text-lg leading-tight">
-                      👉 {nome}, você quer eliminar até 1kg por semana?
-                    </p>
-                  </div>
-
                   {/* Final Pricing */}
                   <div className="text-center mb-10">
-                    <p className="text-brand-text-muted font-bold text-sm mb-2">VALOR TOTAL COM BÔNUS: <span className="line-through">R$ 508,00</span></p>
-                    <p className="text-brand-text font-medium text-sm mb-1">HOJE POR APENAS:</p>
+                    <h3 className="text-brand-text font-black text-xl mb-4">💰 CONDIÇÃO ESPECIAL LIBERADA HOJE</h3>
+                    <p className="text-brand-text-muted font-bold text-sm mb-2">De <span className="line-through">R$508,00</span></p>
+                    <p className="text-brand-text font-medium text-sm mb-1">Por apenas:</p>
                     <div className="flex items-center justify-center gap-2 mb-2">
-                      <span className="text-brand-success font-black text-5xl tracking-tighter">R$ 49,90</span>
+                      <span className="text-brand-success font-black text-5xl tracking-tighter">R$49,90</span>
                     </div>
-                    <p className="text-brand-success font-bold text-sm uppercase tracking-widest">PAGAMENTO ÚNICO, À VISTA</p>
+                    <p className="text-brand-success font-bold text-sm uppercase tracking-widest">Pagamento único — acesso completo</p>
                   </div>
 
                   {/* CTA Button */}

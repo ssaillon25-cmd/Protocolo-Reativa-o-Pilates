@@ -80,7 +80,7 @@ export const ProofCarousel = React.memo(() => {
 
         <div className="flex justify-center items-center gap-6">
           <button 
-            onClick={prev}
+            onClick={() => prev()}
             className="p-2 rounded-full bg-white shadow-sm hover:bg-gray-50 transition-all hover:scale-110 active:scale-95"
           >
             <ChevronLeft size={24} className="text-brand-text" />
@@ -96,7 +96,7 @@ export const ProofCarousel = React.memo(() => {
           </div>
 
           <button 
-            onClick={next}
+            onClick={() => next()}
             className="p-2 rounded-full bg-white shadow-sm hover:bg-gray-50 transition-all hover:scale-110 active:scale-95"
           >
             <ChevronRight size={24} className="text-brand-text" />

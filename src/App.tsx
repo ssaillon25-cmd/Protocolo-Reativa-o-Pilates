@@ -203,7 +203,7 @@ const PreScratchScreen = ({ nome, handleNext }: { nome: string, handleNext: () =
                 👉 Toque no botão abaixo para revelar seu presente
               </p>
               <button 
-                onClick={handleNext}
+                onClick={() => handleNext()}
                 className="w-full bg-[#22C55E] hover:bg-[#16a34a] text-white font-display font-black rounded-[16px] h-[64px] flex items-center justify-center transition-all active:scale-95 shadow-[0_10px_30px_rgba(34,197,94,0.4)] animate-pulse border-none hover:scale-[1.02]"
               >
                 🎁 REVELAR MEU PRESENTE AGORA
@@ -524,7 +524,7 @@ const TestimonialCarousel = ({ testimonials }: { testimonials: Testimonial[] }) 
       
       {testimonials.length > 1 && (
         <div className="flex justify-center items-center gap-4 mb-10">
-          <button onClick={prev} className="p-2 rounded-full bg-brand-bg-alt hover:bg-gray-200 text-black transition-colors active:scale-90 border border-gray-100">
+          <button onClick={() => prev()} className="p-2 rounded-full bg-brand-bg-alt hover:bg-gray-200 text-black transition-colors active:scale-90 border border-gray-100">
             <ChevronLeft size={20} className="text-black" />
           </button>
           <div className="flex items-center gap-2">
@@ -532,7 +532,7 @@ const TestimonialCarousel = ({ testimonials }: { testimonials: Testimonial[] }) 
               <div key={i} className={`w-2 h-2 rounded-full transition-all duration-300 ${i === index ? 'bg-brand-pink w-4' : 'bg-gray-300'}`} />
             ))}
           </div>
-          <button onClick={next} className="p-2 rounded-full bg-brand-bg-alt hover:bg-gray-200 text-black transition-colors active:scale-90 border border-gray-100">
+          <button onClick={() => next()} className="p-2 rounded-full bg-brand-bg-alt hover:bg-gray-200 text-black transition-colors active:scale-90 border border-gray-100">
             <ChevronRight size={20} className="text-black" />
           </button>
         </div>
@@ -580,13 +580,13 @@ const ResultImageCarousel = () => {
 
       {/* Navigation Arrows */}
       <button 
-        onClick={(e) => { e.stopPropagation(); prev(); }}
+        onClick={() => prev()}
         className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm shadow-lg flex items-center justify-center text-brand-text hover:bg-white transition-all hover:scale-110 active:scale-95 z-10 opacity-0 group-hover:opacity-100"
       >
         <ChevronLeft size={24} />
       </button>
       <button 
-        onClick={(e) => { e.stopPropagation(); next(); }}
+        onClick={() => next()}
         className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm shadow-lg flex items-center justify-center text-brand-text hover:bg-white transition-all hover:scale-110 active:scale-95 z-10 opacity-0 group-hover:opacity-100"
       >
         <ChevronRight size={24} />
@@ -611,6 +611,7 @@ export default function App() {
   const [currentQuestionInBlock, setCurrentQuestionInBlock] = useState(0);
   const [analysisProgress, setAnalysisProgress] = useState(0);
   const [loadingComplete, setLoadingComplete] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const currentStep = QUIZ_STEPS[stepIndex];
   const totalQuestions = 29;
@@ -618,6 +619,11 @@ export default function App() {
   const progress = (answeredCount / totalQuestions) * 100;
 
   const handleNext = () => {
+    if (isTransitioning || stepIndex >= QUIZ_STEPS.length - 1) return;
+
+    setIsTransitioning(true);
+    setTimeout(() => setIsTransitioning(false), 400); // Guard against rapid clicks
+
     if (currentStep.type === "question") {
       const questions = currentStep.questions || [];
       if (currentQuestionInBlock < questions.length - 1) {
@@ -808,7 +814,7 @@ export default function App() {
       <div className={`px-4 py-12 mx-auto w-full ${hasImages ? 'max-w-3xl' : 'max-w-lg'}`}>
         <div className="flex items-center justify-start mb-8">
           <button 
-            onClick={handleBack}
+            onClick={() => handleBack()}
             className="flex items-center gap-1 text-brand-text-muted hover:text-brand-pink transition-colors font-medium text-sm"
           >
             <ChevronLeft size={18} />
@@ -886,7 +892,7 @@ export default function App() {
 
                 {question.multiple && (
                   <button 
-                    onClick={handleNext}
+                    onClick={() => handleNext()}
                     disabled={!answers[question.id]}
                     className="btn-primary w-full disabled:opacity-50 mt-4"
                   >
@@ -962,7 +968,7 @@ export default function App() {
                 </div>
 
                 <button 
-                  onClick={handleNext}
+                  onClick={() => handleNext()}
                   className="btn-primary w-full shadow-xl"
                 >
                   {currentStep.buttonText || "Continuar"}
@@ -979,7 +985,7 @@ export default function App() {
                 />
                 {currentQuestionInBlock === questions.length - 1 && (
                   <button 
-                    onClick={handleNext}
+                    onClick={() => handleNext()}
                     disabled={!answers[question.id]}
                     className="btn-primary w-full disabled:opacity-50"
                   >
@@ -988,7 +994,7 @@ export default function App() {
                 )}
                 {currentQuestionInBlock < questions.length - 1 && (
                   <button 
-                    onClick={handleNext}
+                    onClick={() => handleNext()}
                     disabled={!answers[question.id]}
                     className="btn-primary w-full disabled:opacity-50"
                   >
@@ -1007,7 +1013,7 @@ export default function App() {
     <div className="fixed inset-0 bg-brand-bg-alt z-40 overflow-y-auto py-10">
       <div className="max-w-md mx-auto px-8 pt-4 flex items-center justify-start">
         <button 
-          onClick={handleBack}
+          onClick={() => handleBack()}
           className="flex items-center gap-1 text-brand-text-muted hover:text-brand-pink transition-colors font-medium text-sm"
         >
           <ChevronLeft size={18} />
@@ -1110,7 +1116,7 @@ export default function App() {
         )}
 
         <button 
-          onClick={handleNext}
+          onClick={() => handleNext()}
           className="bg-brand-pink text-white font-display font-black rounded-[16px] h-[64px] w-full flex items-center justify-center shadow-xl active:scale-95 transition-all"
         >
           {currentStep.buttonText}
@@ -1327,7 +1333,7 @@ export default function App() {
         </div>
 
         <button 
-          onClick={handleNext} 
+          onClick={() => handleNext()} 
           className="w-full py-6 text-xl font-black text-white bg-[#22C55E] hover:bg-[#16a34a] shadow-[0_15px_35px_rgba(34,197,94,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all animate-pulse-green rounded-2xl flex items-center justify-center gap-2 border-none"
         >
           👉 VER MEU PROTOCOLO PERSONALIZADO
@@ -1495,13 +1501,13 @@ export default function App() {
           
           <div className="space-y-4">
             <button 
-              onClick={handleNext}
+              onClick={() => handleNext()}
               className="w-full py-6 text-xl font-black text-white bg-[#22C55E] hover:bg-[#16a34a] shadow-[0_15px_35px_rgba(34,197,94,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all animate-pulse-green rounded-2xl flex items-center justify-center gap-2 border-none"
             >
               🚀 ATIVAR MEU PROTOCOLO
             </button>
             <button 
-              onClick={handleNext}
+              onClick={() => handleNext()}
               className="w-full py-4 text-brand-text-muted font-bold hover:text-brand-pink transition-colors"
             >
               🤔 QUERO TENTAR
@@ -1518,33 +1524,35 @@ export default function App() {
       
       <main className="flex-1 flex flex-col">
         <AnimatePresence mode="wait">
-          <motion.div
-            key={stepIndex + (currentStep.type === "question" ? `-${currentQuestionInBlock}` : "")}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-            className="w-full my-auto"
-          >
-            {currentStep.type === "welcome" && renderWelcome()}
-            {currentStep.type === "question" && renderQuestion()}
-            {currentStep.type === "transition" && renderTransition()}
-            {currentStep.type === "analysis" && renderAnalysis()}
-            {currentStep.type === "result-cause" && renderResultCause()}
-            {currentStep.type === "result-final" && renderResultFinal()}
-            {currentStep.type === "pre-scratch" && (
-              <PreScratchScreen 
-                nome={answers[29] || "Você"} 
-                handleNext={handleNext} 
-              />
-            )}
-            {currentStep.type === "gift" && (
-              <GiftScreen 
-                nome={answers[29] || "Você"} 
-                handleNext={handleNext} 
-              />
-            )}
-          </motion.div>
+          {currentStep && (
+            <motion.div
+              key={stepIndex + (currentStep.type === "question" ? `-${currentQuestionInBlock}` : "")}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+              className="w-full my-auto"
+            >
+              {currentStep.type === "welcome" && renderWelcome()}
+              {currentStep.type === "question" && renderQuestion()}
+              {currentStep.type === "transition" && renderTransition()}
+              {currentStep.type === "analysis" && renderAnalysis()}
+              {currentStep.type === "result-cause" && renderResultCause()}
+              {currentStep.type === "result-final" && renderResultFinal()}
+              {currentStep.type === "pre-scratch" && (
+                <PreScratchScreen 
+                  nome={answers[29] || "Você"} 
+                  handleNext={handleNext} 
+                />
+              )}
+              {currentStep.type === "gift" && (
+                <GiftScreen 
+                  nome={answers[29] || "Você"} 
+                  handleNext={handleNext} 
+                />
+              )}
+            </motion.div>
+          )}
         </AnimatePresence>
       </main>
 
