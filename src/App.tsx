@@ -514,6 +514,7 @@ export default function App() {
   };
 
   const handleAnswer = (questionId: number, value: string) => {
+    if (typeof value !== 'string') return;
     const question = currentStep.questions?.[currentQuestionInBlock];
     
     if (question?.multiple) {
@@ -530,6 +531,7 @@ export default function App() {
   };
 
   const handleInputChange = (questionId: number, value: string) => {
+    if (typeof value !== 'string') return;
     setAnswers(prev => ({ ...prev, [questionId]: value }));
   };
 
