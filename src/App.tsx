@@ -33,8 +33,8 @@ import {
   Trophy,
   Calendar
 } from "lucide-react";
-import { ProofCarousel } from "./components/ProofCarousel";
-import { SalesPopup } from "./components/SalesPopup";
+import { ProofCarousel } from "./components/ProofCarousel.tsx";
+import { SalesPopup } from "./components/SalesPopup.tsx";
 
 type Option = {
   label: string;
