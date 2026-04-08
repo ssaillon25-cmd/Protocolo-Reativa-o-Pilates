@@ -24,12 +24,17 @@ import {
   BarChart3,
   TrendingUp,
   Flame,
+  Play,
+  Utensils,
+  ShieldCheck,
+  Lock,
+  CreditCard,
+  Smartphone,
   Trophy,
   Calendar
 } from "lucide-react";
-import { GiftScreen } from "./components/GiftScreen";
-
-// --- Types ---
+import { ProofCarousel } from "./components/ProofCarousel";
+import { SalesPopup } from "./components/SalesPopup";
 
 type Option = {
   label: string;
@@ -56,7 +61,7 @@ type Testimonial = {
 };
 
 type QuizStep = {
-  type: "welcome" | "question" | "transition" | "analysis" | "result-cause" | "result-final" | "pre-scratch" | "gift";
+  type: "welcome" | "question" | "transition" | "analysis" | "result-cause" | "result-final" | "final-offer" | "offer";
   title?: string;
   subtitle?: string;
   text?: string;
@@ -70,162 +75,13 @@ type QuizStep = {
   footerText?: string;
 };
 
-const PreScratchScreen = ({ nome, handleNext }: { nome: string, handleNext: () => void }) => {
-  const [processStep, setProcessStep] = useState(0);
-  const [showButton, setShowButton] = useState(false);
-
-  const steps = [
-    "Verificando disponibilidade...",
-    "Validando seu perfil...",
-    "Liberando seu benefício..."
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProcessStep(prev => {
-        if (prev >= steps.length - 1) {
-          clearInterval(interval);
-          setTimeout(() => setShowButton(true), 500);
-          return prev;
-        }
-        return prev + 1;
-      });
-    }, 1500);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="px-6 py-12 max-w-lg mx-auto w-full bg-brand-bg min-h-screen flex flex-col">
-      <div className="flex-1 flex flex-col">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-8"
-        >
-          <h2 className="text-2xl font-display font-bold !text-[#ff4d6d] mb-4 leading-tight">
-            {nome}, você deu o primeiro passo certo.
-          </h2>
-          <p className="text-brand-text font-semibold text-lg leading-snug">
-            Com base na sua decisão, liberamos uma verificação final para acessar seu benefício.
-          </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="bg-brand-bg-alt p-6 rounded-[24px] mb-8 border border-gray-100"
-        >
-          <p className="text-brand-text text-sm leading-relaxed mb-4">
-            Nem todas as pessoas chegam até aqui…
-          </p>
-          <p className="text-brand-text text-sm leading-relaxed mb-4">
-            E menos ainda têm o perfil ideal para esse tipo de resultado.
-          </p>
-          <p className="text-brand-pink font-bold text-lg">
-            👉 Você tem.
-          </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="text-center mb-8"
-        >
-          <p className="text-brand-text font-medium mb-4">
-            Por isso, o sistema liberou para você um presente personalizado 👇
-          </p>
-          <div className="inline-flex items-center gap-2 bg-brand-pink/10 text-brand-pink px-4 py-2 rounded-full font-bold text-xs uppercase tracking-wider">
-            <Zap size={14} />
-            Antecipação
-          </div>
-        </motion.div>
-
-        <div className="space-y-6 mb-10">
-          <p className="text-center text-brand-text-muted text-sm italic">
-            Mas antes de acessar… precisamos validar sua liberação no sistema.
-          </p>
-
-          <div className="bg-brand-bg-alt p-6 rounded-[24px] border border-brand-text/10">
-            <div className="flex flex-col gap-4">
-              {steps.map((step, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <div className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors ${processStep >= i ? 'bg-brand-success' : 'bg-gray-200'}`}>
-                    {processStep > i ? (
-                      <Check size={12} className="text-white" />
-                    ) : processStep === i ? (
-                      <Loader2 size={12} className="text-white animate-spin" />
-                    ) : (
-                      <div className="w-1 h-1 bg-gray-400 rounded-full" />
-                    )}
-                  </div>
-                  <span className={`text-sm font-medium transition-colors ${processStep >= i ? 'text-brand-text' : 'text-gray-400'}`}>
-                    {step}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-6">
-              <div className="flex justify-between text-[10px] font-bold text-brand-text uppercase mb-2">
-                <span>Progresso</span>
-                <span>{processStep === steps.length - 1 ? '92%' : `${Math.floor((processStep / steps.length) * 92)}%`} concluído</span>
-              </div>
-              <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-                <motion.div 
-                  className="h-full bg-brand-success"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${(processStep + 1) / steps.length * 92}%` }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="text-center text-brand-text-muted text-xs mb-8"
-        >
-          🔥 Isso garante que apenas pessoas com real potencial tenham acesso.
-        </motion.p>
-
-        <AnimatePresence>
-          {showButton && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="space-y-4"
-            >
-              <p className="text-center font-bold text-brand-text">
-                👉 Toque no botão abaixo para revelar seu presente
-              </p>
-              <button 
-                onClick={() => handleNext()}
-                className="w-full bg-[#22C55E] hover:bg-[#16a34a] text-white font-display font-black rounded-[16px] h-[64px] flex items-center justify-center transition-all active:scale-95 shadow-[0_10px_30px_rgba(34,197,94,0.4)] animate-pulse border-none hover:scale-[1.02]"
-              >
-                🎁 REVELAR MEU PRESENTE AGORA
-              </button>
-              <p className="text-center text-[10px] text-brand-pink font-bold uppercase tracking-widest">
-                ⏰ Essa liberação é temporária e pode expirar a qualquer momento.
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </div>
-  );
-};
-
 // --- Data ---
 
 const QUIZ_STEPS: QuizStep[] = [
   {
     type: "welcome",
-    title: "ERRO SILENCIOSO QUE TRAVA O METABOLISMO DAS MULHERES APÓS OS 30!",
-    subtitle: "Descubra em 2 minutos se seu corpo está bloqueando a queima de gordura",
+    title: "O ERRO SILENCIOSO QUE TRAVA O METABOLISMO DAS MULHERES APÓS OS 30 — E QUASE NINGUÉM PERCEBE.",
+    subtitle: "Descubra em 2 minutos se o seu corpo está bloqueando a queima de gordura… e como reativar isso com um método simples de 10 minutos por dia.",
     questions: [
       { 
         id: 1, 
@@ -422,10 +278,10 @@ const QUIZ_STEPS: QuizStep[] = [
     type: "result-final"
   },
   {
-    type: "pre-scratch"
+    type: "final-offer"
   },
   {
-    type: "gift"
+    type: "offer"
   }
 ];
 
@@ -1201,69 +1057,17 @@ export default function App() {
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 bg-brand-success/10 text-brand-success px-4 py-2 rounded-full font-bold text-sm mb-6">
             <AlertTriangle size={16} />
-            ⚠️ CAUSA RAIZ IDENTIFICADA
+            ⚠️ IDENTIFICAMOS O PRINCIPAL BLOQUEIO DO SEU CORPO
           </div>
-          <h2 className="text-xl font-display font-bold text-brand-text mb-8 leading-tight">
-            {nome}, encontramos o principal bloqueio do seu corpo:
-          </h2>
-          
-          <div className="bg-brand-pink/5 p-6 rounded-[24px] border border-brand-pink/20 mb-10">
-            <p className="text-brand-pink font-black text-sm uppercase tracking-widest mb-2">💣 SEU PROBLEMA É:</p>
-            <p className="text-2xl font-display font-black !text-[#ff4d6d] leading-tight">
-              👉 Metabolismo hormonal desacelerado
-            </p>
-          </div>
-        </div>
-
-        <div className="mb-10">
-          <h3 className="font-display font-bold text-brand-text mb-6 flex items-center gap-2 justify-center">
-            <BarChart3 size={20} className="text-brand-text" />
-            📊 SEU ESTADO ATUAL
-          </h3>
-          
-          <div className="card-quiz mb-6">
-            <div className="mb-6">
-              <div className="flex justify-between items-end mb-2">
-                <span className="font-bold text-brand-text flex items-center gap-1">
-                  <Flame size={16} className="text-brand-pink" /> 🔥 Metabolismo
-                </span>
-                <span className="text-brand-success font-black text-xl">27%</span>
-              </div>
-              <div className="w-full h-4 bg-gray-100 rounded-full overflow-hidden flex">
-                <motion.div 
-                  initial={{ width: 0 }}
-                  animate={{ width: "27%" }}
-                  transition={{ duration: 1, delay: 0.5 }}
-                  className="h-full bg-brand-success" 
-                />
-              </div>
-              <p className="text-xs text-brand-text-muted mt-3 font-medium">Seu corpo está queimando muito menos gordura do que deveria.</p>
-            </div>
-
-            <div>
-              <div className="flex justify-between items-end mb-2">
-                <span className="font-bold text-brand-text flex items-center gap-1">
-                  <TrendingDown size={16} className="text-brand-pink" /> ⚖️ Equilíbrio hormonal
-                </span>
-                <span className="text-brand-success font-black text-xl">32%</span>
-              </div>
-              <div className="w-full h-4 bg-gray-100 rounded-full overflow-hidden">
-                <motion.div 
-                  initial={{ width: 0 }}
-                  animate={{ width: "32%" }}
-                  transition={{ duration: 1, delay: 0.7 }}
-                  className="h-full bg-brand-success" 
-                />
-              </div>
-              <p className="text-xs text-brand-text-muted mt-3 font-medium">Abaixo do nível ideal para ativar a queima de gordura.</p>
-            </div>
-          </div>
+          <p className="text-brand-text font-medium text-lg leading-tight mt-4">
+            Pelas suas respostas, seu corpo está com o metabolismo desacelerado — e isso está travando sua queima de gordura.
+          </p>
         </div>
 
         <div className="bg-brand-bg-alt p-8 rounded-[32px] border border-gray-100 mb-10 shadow-sm">
           <h3 className="font-display font-bold text-brand-text mb-6 flex items-center gap-2">
             <Brain size={20} className="text-brand-text" />
-            🧠 EXPLICAÇÃO
+            🧠 O QUE ESTÁ ACONTECENDO NO SEU CASO
           </h3>
           <p className="text-brand-text mb-6 leading-relaxed font-medium">
             Isso faz com que seu corpo entre em um modo de defesa…
@@ -1271,11 +1075,11 @@ export default function App() {
           <ul className="space-y-4">
             <li className="flex items-start gap-3 text-brand-text font-bold">
               <span className="text-brand-pink text-lg">👉</span>
-              <span>armazenando gordura ao invés de queimar</span>
+              <span>armazenando gordura, principalmente na região da barriga</span>
             </li>
             <li className="flex items-start gap-3 text-brand-text font-bold">
               <span className="text-brand-pink text-lg">👉</span>
-              <span>reduzindo sua energia</span>
+              <span>diminuindo sua energia ao longo do dia</span>
             </li>
             <li className="flex items-start gap-3 text-brand-text font-bold">
               <span className="text-brand-pink text-lg">👉</span>
@@ -1286,48 +1090,55 @@ export default function App() {
 
         <div className="text-center mb-10 px-4">
           <p className="text-xl font-bold text-brand-text leading-tight">
-            Por isso parece que nada funciona… <br />
-            <span className="text-brand-text-muted">mesmo quando você se esforça.</span>
+            E é por isso que parece que nada funciona… <br />
+            <span className="text-brand-text-muted text-lg">mesmo quando você tenta se alimentar melhor ou fazer algum exercício.</span>
+          </p>
+        </div>
+
+        <div className="bg-brand-pink/5 p-8 rounded-[32px] border border-brand-pink/20 mb-10 text-center">
+          <h3 className="text-brand-pink font-black text-sm uppercase tracking-widest mb-4">💣 O PONTO MAIS IMPORTANTE</h3>
+          <p className="text-lg font-bold text-brand-text leading-tight">
+            O problema não é falta de esforço. <br />
+            <span className="text-brand-pink text-xl">👉 É que seu corpo não está respondendo como antes.</span>
           </p>
         </div>
 
         <div className="bg-brand-success/5 p-8 rounded-[32px] border border-brand-success/20 mb-10 text-center">
+          <h3 className="text-brand-success font-black text-sm uppercase tracking-widest mb-4">✅ A BOA NOTÍCIA</h3>
           <p className="text-lg font-bold text-brand-text leading-tight">
-            Mas a boa notícia é: <br />
-            <span className="text-brand-success text-xl">👉 isso pode ser revertido ao ativar seu metabolismo da forma correta.</span>
+            Isso pode ser revertido. <br />
+            <span className="text-brand-text-muted text-base block mt-2">E no seu caso, existe uma forma simples de reativar esse processo sem precisar de academia ou mudanças radicais.</span>
           </p>
         </div>
 
         <div className="card-quiz mb-10 border-brand-success/30 bg-white">
-          <h3 className="text-xl font-display font-black text-brand-text mb-4 leading-tight">
-            ✅ {nome}, seu protocolo já está pronto
+          <h3 className="text-xl font-display font-black text-brand-text mb-6 leading-tight flex items-center gap-2 justify-center">
+            <Zap size={20} className="text-brand-success" />
+            🎯 SEU PRÓXIMO PASSO
           </h3>
-          <p className="text-brand-text-muted text-sm leading-relaxed">
-            Criamos um plano personalizado com base nas suas respostas para reativar seu metabolismo de forma simples e progressiva.
+          <p className="text-brand-text-muted text-sm leading-relaxed mb-6 text-center">
+            Com base nas suas respostas, preparamos um plano específico pra você.
           </p>
-        </div>
-
-        <div className="bg-brand-text p-8 rounded-[32px] mb-10 text-white shadow-xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16" />
-          <p className="font-bold text-lg mb-6 leading-tight">Nos próximos segundos, você vai ver exatamente:</p>
-          <ul className="space-y-4">
+          
+          <p className="font-bold text-brand-text mb-4 text-center">Nos próximos segundos, você vai ver:</p>
+          <ul className="space-y-4 max-w-xs mx-auto">
             <li className="flex items-center gap-3">
               <div className="w-5 h-5 rounded-full bg-brand-success flex items-center justify-center shrink-0">
                 <Check size={12} className="text-white" />
               </div>
-              <span className="font-medium">Como ativar seu metabolismo</span>
+              <span className="font-medium text-sm">Como reativar seu metabolismo</span>
             </li>
             <li className="flex items-center gap-3">
               <div className="w-5 h-5 rounded-full bg-brand-success flex items-center justify-center shrink-0">
                 <Check size={12} className="text-white" />
               </div>
-              <span className="font-medium">Como começar com apenas 10 minutos por dia</span>
+              <span className="font-medium text-sm">Como começar com apenas 10 minutos por dia</span>
             </li>
             <li className="flex items-center gap-3">
               <div className="w-5 h-5 rounded-full bg-brand-success flex items-center justify-center shrink-0">
                 <Check size={12} className="text-white" />
               </div>
-              <span className="font-medium">E como eliminar gordura de forma consistente</span>
+              <span className="font-medium text-sm">E como voltar a ver seu corpo responder</span>
             </li>
           </ul>
         </div>
@@ -1336,7 +1147,7 @@ export default function App() {
           onClick={() => handleNext()} 
           className="w-full py-6 text-xl font-black text-white bg-[#22C55E] hover:bg-[#16a34a] shadow-[0_15px_35px_rgba(34,197,94,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all animate-pulse-green rounded-2xl flex items-center justify-center gap-2 border-none"
         >
-          👉 VER MEU PROTOCOLO PERSONALIZADO
+          👉 VER MEU PLANO PERSONALIZADO
         </button>
       </div>
     );
@@ -1346,121 +1157,115 @@ export default function App() {
     const nome = (answers[29] || "Você").toUpperCase();
     return (
       <div className="px-6 py-12 max-w-lg mx-auto w-full bg-brand-bg min-h-screen">
-        <div className="flex items-center gap-2 text-brand-success font-bold mb-4 justify-center">
-          <CheckCircle2 size={20} />
-          Plano criado com sucesso
-        </div>
-        
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-display font-black mb-2 uppercase tracking-tight !text-[#22c55e]">
-            🎉 PARABÉNS, {nome}!
+          <h2 className="text-3xl font-display font-black mb-4 uppercase tracking-tight !text-[#22c55e]">
+            🎉 {nome} SEU PLANO FOI LIBERADO
           </h2>
-          <p className="text-brand-text font-bold text-lg leading-tight">
-            Seu teste identificou um alto potencial de emagrecimento
+          <p className="text-brand-text font-medium text-lg leading-tight">
+            Pelas suas respostas, seu corpo tem potencial real de voltar a queimar gordura — quando o método certo é aplicado.
           </p>
         </div>
 
-        {/* Brain/Explanation Section */}
+        {/* Entenda Isso Section */}
         <div className="bg-brand-text/5 border border-brand-text/10 p-6 rounded-[24px] mb-10 relative overflow-hidden">
-          <div className="absolute -right-4 -top-4 opacity-10">
-            <Brain size={80} className="text-brand-text" />
-          </div>
           <h3 className="font-display font-bold text-brand-text mb-4 flex items-center gap-2">
             <Brain size={20} className="text-brand-text" />
-            🧠 EXPLICAÇÃO
+            🧠 ENTENDA ISSO
           </h3>
-          <p className="text-brand-text leading-relaxed">
-            Com base nas suas respostas… <br />
-            <span className="font-bold text-brand-success">👉 seu corpo tem capacidade de eliminar até 1kg por semana</span> desde que você ative corretamente o seu metabolismo hormonal.
+          <p className="text-brand-text leading-relaxed mb-4">
+            Quando o metabolismo é reativado da forma correta…
           </p>
+          <ul className="space-y-2">
+            <li className="flex items-start gap-2 text-brand-text font-medium">
+              <span className="text-brand-success">👉</span> o corpo volta a responder
+            </li>
+            <li className="flex items-start gap-2 text-brand-text font-medium">
+              <span className="text-brand-success">👉</span> o inchaço começa a diminuir
+            </li>
+            <li className="flex items-start gap-2 text-brand-text font-medium">
+              <span className="text-brand-success">👉</span> e as primeiras mudanças começam a aparecer mais rápido do que você imagina
+            </li>
+          </ul>
         </div>
 
-        {/* Visual Projection Bars */}
-        <div className="mb-10">
+        {/* O Que Você Pode Esperar Section */}
+        <div className="card-quiz mb-10 border-blue-200">
           <h3 className="font-display font-bold text-blue-600 mb-6 flex items-center gap-2">
-            <BarChart3 size={20} className="text-blue-600" />
-            📊 PROJEÇÃO VISUAL
+            <TrendingUp size={20} />
+            📈 O QUE VOCÊ PODE ESPERAR
           </h3>
-          <p className="text-sm text-brand-text-muted mb-4 font-medium">Sua estimativa de emagrecimento:</p>
           
-          <div className="space-y-4">
-            <div className="flex flex-col gap-1">
-              <div className="flex justify-between text-[10px] font-bold text-gray-400 uppercase">
-                <span>0.5kg</span>
-                <span>Baixo</span>
-              </div>
-              <div className="flex gap-1">
-                {[1, 2, 3, 4, 5].map(i => (
-                  <div key={i} className={`h-4 flex-1 rounded-sm ${i <= 2 ? 'bg-brand-text/40' : 'bg-gray-100'}`} />
-                ))}
-              </div>
+          <div className="space-y-6">
+            <div>
+              <p className="font-bold text-brand-text mb-2">Nos primeiros dias:</p>
+              <ul className="space-y-1 ml-2">
+                <li className="flex items-center gap-2 text-sm text-brand-text-muted">
+                  <Check size={14} className="text-brand-success" /> sensação de leveza
+                </li>
+                <li className="flex items-center gap-2 text-sm text-brand-text-muted">
+                  <Check size={14} className="text-brand-success" /> redução do inchaço
+                </li>
+              </ul>
             </div>
 
-            <div className="flex flex-col gap-1 relative">
-              <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-blue-600 font-bold text-xs flex items-center gap-1">
-                Você está aqui <ArrowDown size={12} />
-              </div>
-              <div className="flex justify-between text-[10px] font-bold text-blue-600 uppercase">
-                <span>👉 1kg</span>
-                <span>Ideal</span>
-              </div>
-              <div className="flex gap-1">
-                {[1, 2, 3, 4, 5].map(i => (
-                  <div key={i} className={`h-4 flex-1 rounded-sm ${i <= 4 ? 'bg-blue-600' : 'bg-gray-100'}`} />
-                ))}
-              </div>
+            <div>
+              <p className="font-bold text-brand-text mb-2">Na primeira semana:</p>
+              <ul className="space-y-1 ml-2">
+                <li className="flex items-center gap-2 text-sm text-brand-text-muted">
+                  <Check size={14} className="text-brand-success" /> roupas começando a ficar mais folgadas
+                </li>
+              </ul>
             </div>
 
-            <div className="flex flex-col gap-1">
-              <div className="flex justify-between text-[10px] font-bold text-gray-400 uppercase">
-                <span>1.5kg</span>
-                <span>Acelerado</span>
-              </div>
-              <div className="flex gap-1">
-                {[1, 2, 3, 4, 5].map(i => (
-                  <div key={i} className={`h-4 flex-1 rounded-sm bg-brand-text/20`} />
-                ))}
-              </div>
+            <div>
+              <p className="font-bold text-brand-text mb-2">Com consistência:</p>
+              <ul className="space-y-1 ml-2">
+                <li className="flex items-center gap-2 text-sm text-brand-text-muted">
+                  <Check size={14} className="text-brand-success" /> corpo mais definido
+                </li>
+                <li className="flex items-center gap-2 text-sm text-brand-text-muted">
+                  <Check size={14} className="text-brand-success" /> mais energia
+                </li>
+                <li className="flex items-center gap-2 text-sm text-brand-text-muted">
+                  <Check size={14} className="text-brand-success" /> e resultado visível no espelho
+                </li>
+              </ul>
             </div>
           </div>
         </div>
 
-        <div className="bg-brand-success/5 border-l-4 border-brand-success p-4 mb-10 italic text-brand-text font-medium">
-          "Isso significa que seu corpo responde rápido quando o método certo é aplicado."
-        </div>
-
-        {/* Personalized Plan */}
-        <div className="card-quiz mb-10 border-blue-200">
-          <h3 className="font-display font-bold text-blue-600 mb-8 flex items-center gap-2">
-            <TrendingUp size={20} />
-            📈 SEU PLANO PERSONALIZADO:
+        {/* Como Funciona Seu Plano Section */}
+        <div className="card-quiz mb-10 border-brand-success/20">
+          <h3 className="font-display font-bold text-brand-success mb-8 flex items-center gap-2">
+            <Zap size={20} />
+            🎯 COMO FUNCIONA SEU PLANO
           </h3>
 
           <div className="space-y-8">
             {[
               { 
                 title: "1. Reativação Metabólica", 
-                desc: "Primeiros 7 dias — seu metabolismo começa a acelerar", 
-                icon: <Zap size={18} className="text-blue-600" /> 
+                desc: "Seu corpo sai do modo travado e volta a responder", 
+                icon: <Zap size={18} className="text-brand-success" /> 
               },
               { 
-                title: "2. Queima Visível", 
-                desc: "Semanas 2 e 3 — gordura localizada começa a reduzir", 
-                icon: <Flame size={18} className="text-blue-600" /> 
+                title: "2. Queima Progressiva", 
+                desc: "A gordura começa a reduzir de forma contínua", 
+                icon: <Flame size={18} className="text-brand-success" /> 
               },
               { 
-                title: "3. Resultado e Tonificação", 
-                desc: "Semana 4 — corpo mais leve, definido e com mais energia", 
-                icon: <Trophy size={18} className="text-blue-600" /> 
+                title: "3. Definição e Leveza", 
+                desc: "Seu corpo fica mais leve, firme e ativo", 
+                icon: <Trophy size={18} className="text-brand-success" /> 
               }
             ].map((item, i) => (
               <div key={i} className="flex gap-4 relative">
-                {i < 2 && <div className="absolute left-4 top-10 bottom-[-20px] w-0.5 bg-blue-100" />}
-                <div className="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center shrink-0 shadow-sm">
+                {i < 2 && <div className="absolute left-4 top-10 bottom-[-20px] w-0.5 bg-brand-success/10" />}
+                <div className="w-9 h-9 rounded-xl bg-brand-success/5 flex items-center justify-center shrink-0 shadow-sm">
                   {item.icon}
                 </div>
                 <div>
-                  <h4 className="font-bold text-blue-600 text-lg leading-tight mb-1">{item.title}</h4>
+                  <h4 className="font-bold text-brand-text text-lg leading-tight mb-1">{item.title}</h4>
                   <p className="text-sm text-brand-text-muted leading-snug">{item.desc}</p>
                 </div>
               </div>
@@ -1468,35 +1273,15 @@ export default function App() {
           </div>
         </div>
 
-        {/* Weekly Results */}
-        <div className="bg-brand-text p-8 rounded-[32px] mb-12 text-white shadow-xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16" />
-          <h3 className="font-display font-bold !text-white mb-6 text-sm uppercase tracking-widest flex items-center gap-2">
-            <Calendar size={16} />
-            <span className="!text-white">📉 RESULTADO SEMANAL</span>
-          </h3>
-          <div className="space-y-4">
-            {[
-              { week: "Semana 1", loss: "−1kg" },
-              { week: "Semana 2", loss: "−2kg" },
-              { week: "Semana 3", loss: "−3kg" },
-              { week: "Semana 4", loss: "−4kg" }
-            ].map((item, i) => (
-              <div key={i} className="flex justify-between items-center border-b border-white/10 pb-3 last:border-0 last:pb-0">
-                <span className="text-lg font-medium text-white">{item.week}</span>
-                <span className="text-2xl font-black text-brand-success">{item.loss}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* Social Proof Carousel */}
-        <ResultImageCarousel />
+        <div className="mb-10">
+          <ResultImageCarousel />
+        </div>
 
         {/* Closing Question */}
         <div className="text-center mb-10">
-          <h3 className="text-xl font-display font-bold text-[#f59e0b] mb-8 px-4">
-            👉 {nome}, você quer eliminar até 1kg por semana?
+          <h3 className="text-xl font-display font-bold text-brand-text mb-8 px-4">
+            Você quer voltar a ver seu corpo reagir de verdade?
           </h3>
           
           <div className="space-y-4">
@@ -1504,16 +1289,329 @@ export default function App() {
               onClick={() => handleNext()}
               className="w-full py-6 text-xl font-black text-white bg-[#22C55E] hover:bg-[#16a34a] shadow-[0_15px_35px_rgba(34,197,94,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all animate-pulse-green rounded-2xl flex items-center justify-center gap-2 border-none"
             >
-              🚀 ATIVAR MEU PROTOCOLO
+              👉 SIM, QUERO ATIVAR MEU METABOLISMO
             </button>
             <button 
               onClick={() => handleNext()}
-              className="w-full py-4 text-brand-text-muted font-bold hover:text-brand-pink transition-colors"
+              className="w-full py-4 text-brand-text-muted font-bold hover:text-brand-pink transition-colors text-sm"
             >
-              🤔 QUERO TENTAR
+              👉 Prefiro continuar como estou
             </button>
           </div>
         </div>
+      </div>
+    );
+  };
+
+  const renderFinalOffer = () => {
+    return (
+      <div className="px-6 py-12 max-w-lg mx-auto w-full bg-brand-bg min-h-screen flex flex-col">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-8"
+        >
+          <h2 className="text-2xl font-display font-bold !text-[#ff4d6d] mb-6 leading-tight">
+            “Talvez você esteja pensando…”
+          </h2>
+          <p className="text-brand-text font-bold text-xl mb-8">
+            - “Mas será que isso funciona pra mim?”
+          </p>
+          <p className="text-brand-text mb-8 leading-relaxed">
+            E faz sentido você pensar assim. <br />
+            Principalmente se você já tentou:
+          </p>
+        </motion.div>
+
+        <div className="space-y-3 mb-10">
+          {["dieta", "caminhada", "academia", "ou até outros métodos"].map((item, i) => (
+            <div key={i} className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-center gap-3">
+              <div className="w-2 h-2 rounded-full bg-brand-pink" />
+              <span className="text-brand-text font-medium">{item}</span>
+            </div>
+          ))}
+          <p className="text-center text-brand-text-muted mt-4 italic">…e nada realmente funcionou como deveria.</p>
+        </div>
+
+        <div className="bg-brand-bg-alt p-8 rounded-[32px] border border-gray-100 mb-10 shadow-sm">
+          <p className="text-brand-text font-bold mb-6 text-center">Mas aqui está o ponto que quase ninguém te explica:</p>
+          <ul className="space-y-4 mb-6">
+            <li className="flex items-center gap-3 font-bold text-brand-text">
+              <Check size={18} className="text-brand-success" /> - não é falta de esforço
+            </li>
+            <li className="flex items-center gap-3 font-bold text-brand-text">
+              <Check size={18} className="text-brand-success" /> - nem falta de disciplina
+            </li>
+          </ul>
+          <p className="text-brand-pink font-black text-lg text-center leading-tight">
+            É que seu corpo não está respondendo como antes.
+          </p>
+        </div>
+
+        <div className="mb-10 space-y-4">
+          <p className="text-center font-bold text-brand-text">Depois dos 30, principalmente com alterações hormonais…</p>
+          <div className="space-y-2">
+            {[
+              "- o metabolismo desacelera",
+              "- o corpo entra em modo de economia",
+              "- e começa a resistir à queima de gordura"
+            ].map((text, i) => (
+              <p key={i} className="text-brand-text-muted text-center font-medium">{text}</p>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-brand-success/5 p-8 rounded-[32px] border border-brand-success/20 mb-10 text-center">
+          <p className="text-brand-text font-bold mb-4">E é exatamente por isso que esse protocolo foi criado.</p>
+          <p className="text-brand-text mb-4">Para:</p>
+          <ul className="space-y-2 mb-6">
+            <li className="font-bold text-brand-success">- reativar o metabolismo</li>
+            <li className="font-bold text-brand-success">- sem sobrecarregar seu corpo</li>
+            <li className="font-bold text-brand-success">- com apenas 10 minutos por dia</li>
+          </ul>
+          <p className="text-brand-text font-medium">Agora você vai entender como isso funciona na prática…</p>
+        </div>
+
+        <button 
+          onClick={() => handleNext()} 
+          className="w-full py-6 text-xl font-black text-white bg-[#22C55E] hover:bg-[#16a34a] shadow-[0_15px_35px_rgba(34,197,94,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all animate-pulse-green rounded-2xl flex items-center justify-center gap-2 border-none"
+        >
+          QUERO REATIVAR MEU METABOLISMO AGORA
+        </button>
+      </div>
+    );
+  };
+
+  const renderOffer = () => {
+    return (
+      <div className="px-6 py-12 max-w-lg mx-auto w-full bg-brand-bg-alt min-h-screen flex flex-col items-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="w-full space-y-6 pb-20"
+        >
+          {/* Main Sales Card */}
+          <div className="bg-white rounded-[40px] shadow-2xl relative overflow-hidden border border-gray-100">
+            <div className="absolute top-0 left-0 w-full h-3 bg-brand-pink" />
+            
+            <div className="p-8">
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center gap-1 text-brand-text font-bold text-xs uppercase tracking-widest mb-4">
+                  <Zap size={14} className="fill-brand-text" />
+                  Protocolo Ativação Metabólica
+                </div>
+                <h1 className="text-3xl font-display font-black text-brand-text mb-4 leading-[0.95] tracking-tight">
+                  Reative seu metabolismo travado com apenas 10 minutos por dia — e volte a ver seu corpo responder como antes.
+                </h1>
+                <p className="text-brand-text font-bold text-lg leading-snug">
+                  O método exato para fazer seu corpo queimar gordura naturalmente…<br />
+                  mesmo que você não tenha tempo, não goste de academia ou sinta que nada mais funciona.
+                </p>
+              </div>
+
+              {/* Belief Break */}
+              <div className="bg-brand-text/5 p-6 rounded-[24px] mb-8 border-l-4 border-brand-text">
+                <p className="text-brand-text leading-relaxed italic">
+                  "Você não precisa de mais esforço…<br />
+                  você só precisa <span className="font-bold text-brand-success underline">ativar o mecanismo certo</span> no seu corpo"
+                </p>
+              </div>
+
+              {/* What you get */}
+              <div className="space-y-6 mb-8">
+                <h3 className="font-display font-black text-brand-text text-xl flex items-center gap-2">
+                  <Check size={24} className="text-brand-success" />
+                  O QUE VOCÊ RECEBE HOJE:
+                </h3>
+                <div className="space-y-4">
+                  {[
+                    { title: "✔ Protocolo Pilates em Casa", desc: "Aulas completas, do zero ao avançado — mesmo que você nunca tenha feito antes." },
+                    { title: "✔ Método 10 Minutos", desc: "Sessões rápidas, pensadas para caber na sua rotina." },
+                    { title: "✔ Passo a Passo Guiado", desc: "Você não precisa pensar. É só dar o play e seguir." },
+                    { title: "✔ Acesso Imediato", desc: "Assista pelo celular, tablet ou computador, onde e quando quiser." }
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-4 p-4 rounded-2xl bg-brand-bg-alt border border-gray-100">
+                      <div className="bg-brand-success/10 p-2 rounded-full mt-1">
+                        <Check size={16} className="text-brand-success" />
+                      </div>
+                      <div>
+                        <p className="font-bold text-brand-text">{item.title}</p>
+                        <p className="text-sm text-brand-text-muted">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Video Access Image */}
+              <div className="mb-6 rounded-[32px] overflow-hidden shadow-lg border-4 border-white">
+                <img 
+                  src="https://res.cloudinary.com/dcef2qwzi/image/upload/q_auto/f_auto/v1775084863/Untitled_design_hddre8.png" 
+                  alt="Acesso Imediato"
+                  className="w-full h-auto object-cover"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+
+              {/* Video Access */}
+              <div className="bg-brand-success/10 text-black p-6 rounded-[32px] mb-10 flex items-center gap-5 border border-brand-success/20">
+                <div className="bg-brand-success p-4 rounded-full">
+                  <Play size={28} className="fill-white text-white" />
+                </div>
+                <div>
+                  <p className="font-black text-lg leading-tight text-brand-success">ACESSO IMEDIATO</p>
+                  <p className="text-sm text-black/80">Assista pelo celular, tablet ou computador.</p>
+                </div>
+              </div>
+
+              {/* Bonuses Section */}
+              <div className="space-y-6 mb-10">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-display font-black text-brand-text text-xl flex items-center gap-2">
+                    <Gift size={24} className="text-brand-pink" />
+                    BÔNUS EXCLUSIVOS
+                  </h3>
+                  <span className="text-[10px] font-bold text-brand-pink bg-brand-pink/10 px-2 py-1 rounded">GRÁTIS HOJE</span>
+                </div>
+                
+                {/* Bonus Image */}
+                <div className="rounded-2xl overflow-hidden shadow-md border-2 border-brand-pink/20">
+                  <img 
+                    src="https://res.cloudinary.com/dcef2qwzi/image/upload/q_auto/f_auto/v1775090413/Gemini_Generated_Image_h1jfkzh1jfkzh1jf_ymlpjs.png" 
+                    alt="Bônus Exclusivos"
+                    className="w-full h-auto object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 gap-4">
+                  {[
+                    { icon: Utensils, title: "Plano Alimentar 7 Dias", val: "R$ 67,00" },
+                    { icon: Calendar, title: "Calendário 28 Dias", val: "R$ 47,00" },
+                    { icon: Flame, title: "Aula Ativação Metabólica", val: "R$ 97,00" }
+                  ].map((bonus, i) => (
+                    <div key={i} className="flex items-center justify-between p-4 rounded-2xl border-2 border-dashed border-brand-pink/30 bg-brand-pink/[0.02]">
+                      <div className="flex items-center gap-3">
+                        <bonus.icon size={20} className="text-brand-pink" />
+                        <span className="font-bold text-brand-text text-sm">{bonus.title}</span>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-[10px] text-gray-400 line-through block">{bonus.val}</span>
+                        <span className="text-xs font-black text-brand-success uppercase">Grátis</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Social Proof Carousel */}
+              <div className="-mx-8 mb-12">
+                <ProofCarousel />
+              </div>
+
+              {/* Guarantee */}
+              <div className="flex items-center gap-5 p-6 rounded-[32px] bg-brand-success/5 border-2 border-brand-success/20 mb-10">
+                <ShieldCheck size={48} className="text-brand-success shrink-0" />
+                <div>
+                  <p className="font-black text-brand-text leading-tight mb-1">GARANTIA INCONDICIONAL</p>
+                  <p className="text-xs text-brand-text-muted">7 dias para testar. Se não gostar, devolvemos 100% do seu dinheiro sem perguntas.</p>
+                </div>
+              </div>
+
+              {/* Visual Projection & Personalized Plan */}
+              <div className="space-y-8 mb-10">
+                <div className="bg-[#eff6ff] p-6 rounded-[32px] border border-blue-100">
+                  <h3 className="text-blue-600 font-black text-xl flex items-center gap-2 mb-4">
+                    📉 O QUE PODE ACONTECER COM VOCÊ:
+                  </h3>
+                  <div className="space-y-3">
+                    <p className="text-blue-600 font-bold text-sm">Em poucas semanas, você pode:</p>
+                    <div className="space-y-2">
+                      {["✔ Desinchar nos primeiros dias", "✔ Sentir as roupas mais folgadas", "✔ Voltar a ver o corpo responder", "✔ Reduzir até 1kg por semana"].map((item, i) => (
+                        <div key={i} className="flex items-center gap-2 text-blue-600 font-medium text-sm">
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-[#eff6ff] p-8 rounded-[32px] text-blue-600 shadow-xl shadow-blue-600/5 border border-blue-100">
+                  <h3 className="text-blue-600 font-black text-xl flex items-center gap-2 mb-6">
+                    ⚠️ IMPORTANTE
+                  </h3>
+                  <div className="space-y-4">
+                    <p className="text-blue-600 font-bold text-sm">Esse protocolo foi desenvolvido especialmente para mulheres que:</p>
+                    <ul className="space-y-2 text-blue-600 font-medium text-sm list-none">
+                      <li>• Sentem o metabolismo mais lento após os 30</li>
+                      <li>• Não conseguem mais emagrecer como antes</li>
+                      <li>• Já tentaram dieta e não tiveram resultado</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Final Pricing */}
+              <div className="text-center mb-10">
+                <h3 className="text-brand-text font-black text-xl mb-4">💰 CONDIÇÃO ESPECIAL LIBERADA HOJE</h3>
+                <p className="text-brand-text-muted font-bold text-sm mb-2">De <span className="line-through">R$508,00</span></p>
+                <p className="text-brand-text font-medium text-sm mb-1">Por apenas:</p>
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <span className="text-brand-success font-black text-5xl tracking-tighter">R$49,90</span>
+                </div>
+                <p className="text-brand-success font-bold text-sm uppercase tracking-widest">Pagamento único — acesso completo</p>
+              </div>
+
+              {/* CTA Button */}
+              <div className="space-y-6">
+                <button 
+                  onClick={() => window.open('https://payment.ticto.app/O6623526A', '_blank')}
+                  className="w-full py-8 text-2xl font-black text-white bg-[#22C55E] hover:bg-[#16a34a] shadow-[0_20px_45px_rgba(34,197,94,0.5)] hover:scale-[1.03] active:scale-[0.97] transition-all animate-pulse-green rounded-[32px] flex flex-col items-center justify-center leading-none border-none"
+                >
+                  <span>ATIVAR MEU PROTOCOLO AGORA</span>
+                  <span className="text-[10px] font-bold opacity-80 mt-2 uppercase tracking-widest">Acesso imediato liberado</span>
+                </button>
+                
+                <div className="flex flex-col items-center gap-4">
+                  <div className="flex items-center gap-4 opacity-40">
+                    <Lock size={16} />
+                    <CreditCard size={16} />
+                    <ShieldCheck size={16} />
+                    <Smartphone size={16} />
+                  </div>
+                  <p className="text-[10px] text-brand-text-muted font-bold uppercase tracking-widest text-center">
+                    🔒 Compra 100% Segura e Criptografada
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Final Urgency Footer */}
+          <div className="text-center px-4">
+            <p className="text-brand-text-muted text-xs font-bold uppercase tracking-widest mb-4">
+              ⚠️ Atenção: Esta oferta é única e não será repetida.
+            </p>
+            <div className="flex items-center justify-center gap-6 opacity-60">
+              <div className="text-center">
+                <p className="text-brand-text font-black text-xl">12k+</p>
+                <p className="text-brand-text-muted text-[8px] uppercase font-bold">Alunas</p>
+              </div>
+              <div className="w-px h-8 bg-gray-200" />
+              <div className="text-center">
+                <p className="text-brand-text font-black text-xl">4.9/5</p>
+                <p className="text-brand-text-muted text-[8px] uppercase font-bold">Avaliação</p>
+              </div>
+              <div className="w-px h-8 bg-gray-200" />
+              <div className="text-center">
+                <p className="text-brand-text font-black text-xl">100%</p>
+                <p className="text-brand-text-muted text-[8px] uppercase font-bold">Seguro</p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+        <SalesPopup />
       </div>
     );
   };
@@ -1539,18 +1637,8 @@ export default function App() {
               {currentStep.type === "analysis" && renderAnalysis()}
               {currentStep.type === "result-cause" && renderResultCause()}
               {currentStep.type === "result-final" && renderResultFinal()}
-              {currentStep.type === "pre-scratch" && (
-                <PreScratchScreen 
-                  nome={answers[29] || "Você"} 
-                  handleNext={handleNext} 
-                />
-              )}
-              {currentStep.type === "gift" && (
-                <GiftScreen 
-                  nome={answers[29] || "Você"} 
-                  handleNext={handleNext} 
-                />
-              )}
+              {currentStep.type === "final-offer" && renderFinalOffer()}
+              {currentStep.type === "offer" && renderOffer()}
             </motion.div>
           )}
         </AnimatePresence>
