@@ -54,9 +54,9 @@ export const ProofCarousel = () => {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
-          className="flex flex-col md:flex-row gap-8 items-center"
+          className="flex flex-col gap-6 items-center"
         >
-          <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-brand-pink/20 shrink-0">
+          <div className="w-full aspect-square max-w-[280px] rounded-2xl overflow-hidden border-4 border-brand-pink/20 shrink-0">
             <img 
               src={t.image} 
               alt={t.author}
@@ -65,8 +65,8 @@ export const ProofCarousel = () => {
             />
           </div>
 
-          <div className="flex-grow text-center md:text-left">
-            <div className="flex gap-1 mb-3 justify-center md:justify-start">
+          <div className="text-center">
+            <div className="flex gap-1 mb-3 justify-center">
               {[...Array(t.rating)].map((_, i) => (
                 <Star key={i} size={18} className="fill-yellow-400 text-yellow-400" />
               ))}
