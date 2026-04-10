@@ -1504,7 +1504,6 @@ export default function App() {
               <div className="w-px h-8 bg-gray-200" />
               <div className="text-center">
                 <p className="text-brand-text font-black text-xl">100%</p>
-                <p className="text-brand-text-muted text-[8px] uppercase font-bold">Seguro</p>
               </div>
             </div>
           </div>
