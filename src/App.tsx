@@ -1158,10 +1158,13 @@ export default function App() {
       <div className="px-6 py-12 max-w-lg mx-auto w-full bg-brand-bg min-h-screen">
         <div className="text-center mb-10">
           <h2 className="text-3xl font-display font-black mb-4 uppercase tracking-tight !text-[#22c55e]">
-            🎉 {nome} SEU PLANO FOI LIBERADO
+            🎉 {nome}, SEU PLANO FOI LIBERADO
           </h2>
+          <p className="text-brand-text font-medium text-lg leading-tight mb-4">
+            O que está travando seu corpo é esse erro silencioso no metabolismo…
+          </p>
           <p className="text-brand-text font-medium text-lg leading-tight">
-            Pelas suas respostas, seu corpo tem potencial real de voltar a queimar gordura — quando o método certo é aplicado.
+            E quando ele começa a ser corrigido, seu corpo volta a responder — mesmo depois dos 30.
           </p>
         </div>
 
@@ -1171,90 +1174,70 @@ export default function App() {
             <Brain size={20} className="text-brand-text" />
             🧠 ENTENDA ISSO
           </h3>
-          <p className="text-brand-text leading-relaxed mb-4">
-            Quando o metabolismo é reativado da forma correta…
+          <p className="text-brand-text leading-relaxed mb-2">
+            Não é sobre fazer mais esforço.
           </p>
-          <ul className="space-y-2">
-            <li className="flex items-start gap-2 text-brand-text font-medium">
-              <span className="text-brand-success">👉</span> o corpo volta a responder
-            </li>
-            <li className="flex items-start gap-2 text-brand-text font-medium">
-              <span className="text-brand-success">👉</span> o inchaço começa a diminuir
-            </li>
-            <li className="flex items-start gap-2 text-brand-text font-medium">
-              <span className="text-brand-success">👉</span> e as primeiras mudanças começam a aparecer mais rápido do que você imagina
-            </li>
-          </ul>
+          <p className="text-brand-text font-bold">
+            - é sobre ativar o mecanismo certo
+          </p>
         </div>
 
-        {/* O Que Você Pode Esperar Section */}
+        {/* O Que Você Pode Começar a Sentir Section */}
         <div className="card-quiz mb-10 border-blue-200">
           <h3 className="font-display font-bold text-blue-600 mb-6 flex items-center gap-2">
             <TrendingUp size={20} />
-            📈 O QUE VOCÊ PODE ESPERAR
+            📈 O QUE VOCÊ PODE COMEÇAR A SENTIR
           </h3>
           
           <div className="space-y-6">
             <div>
-              <p className="font-bold text-brand-text mb-2">Nos primeiros dias:</p>
-              <ul className="space-y-1 ml-2">
-                <li className="flex items-center gap-2 text-sm text-brand-text-muted">
-                  <Check size={14} className="text-brand-success" /> sensação de leveza
-                </li>
-                <li className="flex items-center gap-2 text-sm text-brand-text-muted">
-                  <Check size={14} className="text-brand-success" /> redução do inchaço
-                </li>
-              </ul>
+              <p className="font-bold text-brand-text mb-1">- nos primeiros dias</p>
+              <p className="text-sm text-brand-text-muted ml-2">sensação de leveza e menos inchaço</p>
             </div>
 
             <div>
-              <p className="font-bold text-brand-text mb-2">Na primeira semana:</p>
-              <ul className="space-y-1 ml-2">
-                <li className="flex items-center gap-2 text-sm text-brand-text-muted">
-                  <Check size={14} className="text-brand-success" /> roupas começando a ficar mais folgadas
-                </li>
-              </ul>
+              <p className="font-bold text-brand-text mb-1">- na primeira semana</p>
+              <p className="text-sm text-brand-text-muted ml-2">roupas começando a ficar mais folgadas</p>
             </div>
 
             <div>
-              <p className="font-bold text-brand-text mb-2">Com consistência:</p>
-              <ul className="space-y-1 ml-2">
-                <li className="flex items-center gap-2 text-sm text-brand-text-muted">
-                  <Check size={14} className="text-brand-success" /> corpo mais definido
-                </li>
-                <li className="flex items-center gap-2 text-sm text-brand-text-muted">
-                  <Check size={14} className="text-brand-success" /> mais energia
-                </li>
-                <li className="flex items-center gap-2 text-sm text-brand-text-muted">
-                  <Check size={14} className="text-brand-success" /> e resultado visível no espelho
-                </li>
-              </ul>
+              <p className="font-bold text-brand-text mb-1">- com consistência</p>
+              <p className="text-sm text-brand-text-muted ml-2">um corpo mais leve, ativo e visivelmente diferente</p>
             </div>
           </div>
         </div>
 
-        {/* Como Funciona Seu Plano Section */}
-        <div className="card-quiz mb-10 border-brand-success/20">
+        {/* Resultados Section */}
+        <div className="mb-10">
+          <h3 className="font-display font-bold text-brand-text mb-6 flex items-center gap-2 px-2">
+            <Star size={20} className="text-yellow-400 fill-yellow-400" />
+            💬 RESULTADOS DE QUEM JÁ COMEÇOU
+          </h3>
+          <ResultImageCarousel />
+        </div>
+
+        {/* Como Funciona No Seu Caso Section */}
+        <div className="card-quiz mb-6 border-brand-success/20">
           <h3 className="font-display font-bold text-brand-success mb-8 flex items-center gap-2">
             <Zap size={20} />
-            🎯 COMO FUNCIONA SEU PLANO
+            🎯 COMO FUNCIONA NO SEU CASO
           </h3>
 
           <div className="space-y-8">
             {[
               { 
-                title: "1. Reativação Metabólica", 
-                desc: "Seu corpo sai do modo travado e volta a responder", 
+                title: "Reativação Metabólica", 
+                desc: "Seu corpo sai do modo travado", 
                 icon: <Zap size={18} className="text-brand-success" /> 
               },
               { 
-                title: "2. Queima Progressiva", 
-                desc: "A gordura começa a reduzir de forma contínua", 
+                title: "Queima Progressiva", 
+                desc: "A gordura começa a reduzir de forma natural", 
                 icon: <Flame size={18} className="text-brand-success" /> 
               },
               { 
-                title: "3. Definição e Leveza", 
-                desc: "Seu corpo fica mais leve, firme e ativo", 
+                title: "Leveza e Definição", 
+                desc: "Seu corpo volta a responder como antes", 
                 icon: <Trophy size={18} className="text-brand-success" /> 
               }
             ].map((item, i) => (
@@ -1272,23 +1255,18 @@ export default function App() {
           </div>
         </div>
 
-        {/* Social Proof Carousel */}
-        <div className="mb-10">
-          <ResultImageCarousel />
-        </div>
+        <p className="text-center text-brand-text font-bold mb-10 px-4">
+          E é exatamente isso que você precisa corrigir agora.
+        </p>
 
-        {/* Closing Question */}
+        {/* Closing Question & CTA */}
         <div className="text-center mb-10">
-          <h3 className="text-xl font-display font-bold text-brand-text mb-8 px-4">
-            Você quer voltar a ver seu corpo reagir de verdade?
-          </h3>
-          
           <div className="space-y-4">
             <button 
               onClick={() => handleNext()}
               className="w-full py-6 text-xl font-black text-white bg-[#22C55E] hover:bg-[#16a34a] shadow-[0_15px_35px_rgba(34,197,94,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all animate-pulse-green rounded-2xl flex items-center justify-center gap-2 border-none"
             >
-              👉 SIM, QUERO ATIVAR MEU METABOLISMO
+              👉 SIM, QUERO REATIVAR MEU METABOLISMO
             </button>
             <button 
               onClick={() => handleNext()}
