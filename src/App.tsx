@@ -278,9 +278,6 @@ const QUIZ_STEPS: QuizStep[] = [
     type: "result-final"
   },
   {
-    type: "final-offer"
-  },
-  {
     type: "offer"
   }
 ];
@@ -1305,85 +1302,6 @@ export default function App() {
     );
   };
 
-  const renderFinalOffer = () => {
-    return (
-      <div className="px-6 py-12 max-w-lg mx-auto w-full bg-brand-bg min-h-screen flex flex-col">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-8"
-        >
-          <h2 className="text-2xl font-display font-bold !text-[#ff4d6d] mb-6 leading-tight">
-            “Talvez você esteja pensando…”
-          </h2>
-          <p className="text-brand-text font-bold text-xl mb-8">
-            - “Mas será que isso funciona pra mim?”
-          </p>
-          <p className="text-brand-text mb-8 leading-relaxed">
-            E faz sentido você pensar assim. <br />
-            Principalmente se você já tentou:
-          </p>
-        </motion.div>
-
-        <div className="space-y-3 mb-10">
-          {["dieta", "caminhada", "academia", "ou até outros métodos"].map((item, i) => (
-            <div key={i} className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-center gap-3">
-              <div className="w-2 h-2 rounded-full bg-brand-pink" />
-              <span className="text-brand-text font-medium">{item}</span>
-            </div>
-          ))}
-          <p className="text-center text-brand-text-muted mt-4 italic">…e nada realmente funcionou como deveria.</p>
-        </div>
-
-        <div className="bg-brand-bg-alt p-8 rounded-[32px] border border-gray-100 mb-10 shadow-sm">
-          <p className="text-brand-text font-bold mb-6 text-center">Mas aqui está o ponto que quase ninguém te explica:</p>
-          <ul className="space-y-4 mb-6">
-            <li className="flex items-center gap-3 font-bold text-brand-text">
-              <Check size={18} className="text-brand-success" /> - não é falta de esforço
-            </li>
-            <li className="flex items-center gap-3 font-bold text-brand-text">
-              <Check size={18} className="text-brand-success" /> - nem falta de disciplina
-            </li>
-          </ul>
-          <p className="text-brand-pink font-black text-lg text-center leading-tight">
-            É que seu corpo não está respondendo como antes.
-          </p>
-        </div>
-
-        <div className="mb-10 space-y-4">
-          <p className="text-center font-bold text-brand-text">Depois dos 30, principalmente com alterações hormonais…</p>
-          <div className="space-y-2">
-            {[
-              "- o metabolismo desacelera",
-              "- o corpo entra em modo de economia",
-              "- e começa a resistir à queima de gordura"
-            ].map((text, i) => (
-              <p key={i} className="text-brand-text-muted text-center font-medium">{text}</p>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-brand-success/5 p-8 rounded-[32px] border border-brand-success/20 mb-10 text-center">
-          <p className="text-brand-text font-bold mb-4">E é exatamente por isso que esse protocolo foi criado.</p>
-          <p className="text-brand-text mb-4">Para:</p>
-          <ul className="space-y-2 mb-6">
-            <li className="font-bold text-brand-success">- reativar o metabolismo</li>
-            <li className="font-bold text-brand-success">- sem sobrecarregar seu corpo</li>
-            <li className="font-bold text-brand-success">- com apenas 10 minutos por dia</li>
-          </ul>
-          <p className="text-brand-text font-medium">Agora você vai entender como isso funciona na prática…</p>
-        </div>
-
-        <button 
-          onClick={() => handleNext()} 
-          className="w-full py-6 text-xl font-black text-white bg-[#22C55E] hover:bg-[#16a34a] shadow-[0_15px_35px_rgba(34,197,94,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all animate-pulse-green rounded-2xl flex items-center justify-center gap-2 border-none"
-        >
-          QUERO REATIVAR MEU METABOLISMO AGORA
-        </button>
-      </div>
-    );
-  };
-
   const renderOffer = () => {
     return (
       <div className="px-6 py-12 max-w-lg mx-auto w-full bg-brand-bg-alt min-h-screen flex flex-col items-center">
@@ -1639,7 +1557,6 @@ export default function App() {
               {currentStep.type === "analysis" && renderAnalysis()}
               {currentStep.type === "result-cause" && renderResultCause()}
               {currentStep.type === "result-final" && renderResultFinal()}
-              {currentStep.type === "final-offer" && renderFinalOffer()}
               {currentStep.type === "offer" && renderOffer()}
             </motion.div>
           )}
